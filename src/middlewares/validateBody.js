@@ -1,23 +1,17 @@
-export const validateBody = (schema) => (req, res, next) => {
-  const { error } = schema.validate(req.body, { abortEarly: false });
+import createHttpError from 'http-errors';
 
-  if (error) {
-    const formattedErrors = error.details.map((err) => ({
-      message: err.message,
-      path: err.path,
-      type: err.type,
-      context: err.context,
-    }));
-
-    return res.status(400).json({
-      status: 400,
-      message: 'BadRequestError',
-      data: {
-        message: 'Bad Request',
-        errors: formattedErrors,
-      },
+export const validateBody = (schema) => async (req, _res, next) => {
+  try {
+    await schema.validateAsync(req.body, {
+      abortEarly: false,
     });
-  }
 
-  next();
+    next();
+  } catch (err) {
+    const error = createHttpError(400, 'Bad Request', {
+      errors: err.details,
+    });
+
+    next(error);
+  }
 };
