@@ -12,19 +12,19 @@ import {
 const router = Router();
 
 router.post(
-  '/auth/register',
+  '/register',
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
 );
 
 router.post(
-  '/auth/login',
+  '/login',
   validateBody(loginUserSchema),
   ctrlWrapper(loginUserController),
 );
 
-router.post('/auth/refresh', ctrlWrapper(refreshUserSessionController));
+router.post('/refresh', ctrlWrapper(refreshUserSessionController));
 
-router.post('/auth/logout', ctrlWrapper(logoutUserController));
+router.post('/logout', ctrlWrapper(logoutUserController));
 
 export default router;

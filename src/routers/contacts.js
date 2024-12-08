@@ -19,31 +19,23 @@ const router = Router();
 
 router.use(authenticate);
 
-router.get('/contacts', ctrlWrapper(getContactsController));
+router.get('/', ctrlWrapper(getContactsController));
 
-router.get(
-  '/contacts/:contactId',
-  isValid,
-  ctrlWrapper(getContactByIdController),
-);
+router.get('/:contactId', isValid, ctrlWrapper(getContactByIdController));
 
 router.post(
-  '/contacts',
+  '/',
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
 
 router.patch(
-  '/contacts/:contactId',
+  '/:contactId',
   isValid,
   validateBody(updateContactSchema),
   ctrlWrapper(patchContactController),
 );
 
-router.delete(
-  '/contacts/:contactId',
-  isValid,
-  ctrlWrapper(deleteContactController),
-);
+router.delete('/:contactId', isValid, ctrlWrapper(deleteContactController));
 
 export default router;
