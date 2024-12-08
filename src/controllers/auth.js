@@ -44,7 +44,7 @@ const setupSession = (res, session) => {
     expires: new Date(Date.now() + THIRTY_DAYS),
   });
 
-  res.cookie('refreshToken', session._id, {
+  res.cookie('sessionId', session._id, {
     httpOnly: true,
     expires: new Date(Date.now() + THIRTY_DAYS),
   });
